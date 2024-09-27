@@ -18,15 +18,7 @@ We need to create a SSH Key to securely connect to your remote server. SSH is an
 
 **Step 1:** Open the **Terminal** on your device
 
-> **Note:** Step 2 & 3 are for users who do not have a .ssh folder. You can check if you have an .ssh folder with the following code `ls .\.ssh\`
-
-**Step 2:** Type ``cd ~`` into the terminal and press **Enter**
-> This will change your directory into your user file, where we will create the SSH Key.
-
-**Step 3:** Type ``mkdir .ssh`` into the terminal and press **Enter**
-> This will create a new folder called **ssh** on your device
-
-**Step 4:** Type this code into your terminal
+**Step 2:** Type this code into your terminal
 ```
 ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-address"
 ```
@@ -39,26 +31,31 @@ ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-add
 
 > Your key should look something like this
 
+**Step 3:** Check that both your private key and public are in the .ssh directory by typing `cd ~/.ssh` and then `ls`
+
+![Keys in .ssh folder](Images/checkingbothkeys.jpg)
+
+> If both keys are present than you have successfully created the keys
+
 **Congratulations you have successfully created a SSH Key Pair!**
 
 ## Installing and Configuring `doctl`
 
 ### What is `doctl`?
-Doctl is short for DigitalOcean Control, and it is the official command-line interface for the DigitalOcean API. It allows you to use your local command line to interact with DigitalOcean resources. For this tutorial we will be using `doctl` to help us create our Droplet
+`doctl` is the DigitalOcean CLI used for interacting with your DigitalOcean account and managing resources. For this tutorial we will be using `doctl` to help us create our Droplet from a existing Droplet
 > We will be splitting this step into 4 simple parts:
-> 1. Installing `doctl` on your local device
+> 1. Installing `doctl` on Arch Linux
 > 2. Creating an API token
 > 3. Using the API token to grant account access to `doctl`
 > 4. Validate that `doctl` is working
 
-### Installing `doctl` on your local device
->**Note:** We are installing `doctl` for windows devices. If your device is running a different OS system, we recommend looking at the official DigitalOcean `doctl` installation documents for code relative to your operating system.
+### Installing `doctl` on Arch Linux
 
 **Step 1:** Open your **Terminal** 
 
 **Step 2:** Run the code below in your Terminal
 ```
-Invoke-WebRequest https://github.com/digitalocean/doctl/releases/download/v1.110.0/doctl-1.110.0-windows-amd64.zip -OutFile ~\doctl-1.110.0-windows-amd64.zip
+
 ```
 
 **Step 3:** Extract the binary by running the code below
