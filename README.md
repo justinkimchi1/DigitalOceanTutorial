@@ -94,3 +94,48 @@ DigitalOcean allows us to upload our own operating system image that we can use 
 
 **Congratulations, you have finished uploading your Arch Linux Image to your DigitalOcean account!**
 
+## Installing and Configuring `doctl`
+
+### What is `doctl`?
+Doctl is short for DigitalOcean Control, and it is the official command-line interface for the DigitalOcean API. It allows you to use your local command line to interact with DigitalOcean resources. For this tutorial we will be using `doctl` to help us create our Droplet
+> We will be splitting this step into 4 simple parts:
+> 1. Installing `doctl` on your local device
+> 2. Creating an API token
+> 3. Using the API token to grant account access to `doctl`
+> 4. Validate that `doctl` is working
+
+### Installing `doctl` on your local device
+>**Note:** We are installing `doctl` for windows devices. If your device is running a different OS system, we recommend looking at the official DigitalOcean `doctl` installation documents for code relative to your operating system.
+
+**Step 1:** Open your **Terminal** 
+
+**Step 2:** Run the code below in your Terminal
+```
+Invoke-WebRequest https://github.com/digitalocean/doctl/releases/download/v1.110.0/doctl-1.110.0-windows-amd64.zip -OutFile ~\doctl-1.110.0-windows-amd64.zip
+```
+
+**Step 3:** Extract the binary by running the code below
+```
+Expand-Archive -Path ~\doctl-1.110.0-windows-amd64.zip
+```
+
+**Step 4:** In a terminal opened with **Run as Administrator** create a new directory with the code below
+```
+New-Item -ItemType Directory $env:ProgramFiles\doctl\
+```
+> This code creates a new directory where we can move the `doctl` binary into
+
+**Step 5:** Move the `doctl` binary into the new directory with the code below
+```
+Move-Item -Path ~\doctl-1.110.0-windows-amd64\doctl.exe -Destination $env:ProgramFiles\doctl\
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    [Environment]::GetEnvironmentVariable("Path",
+    [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\doctl\",
+    [EnvironmentVariableTarget]::Machine)
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+```
+
+**Congratulations, you have installed `doctl` on your local device!**
+
+### Creating an API token
