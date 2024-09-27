@@ -6,13 +6,13 @@ DigitalOcean is a cloud computing service that provides access to remote servers
 This Tutorial is aimed at Term 2 CIT Students who have some knowledge of command-line functions but do not know how to create a cloud infrastructure. In the tutorial, we will cover generating SSH Keys, creating Droplets using `doctl` command-line tool, using cloud-init to configure your Droplet and adding a custom Arch Linux image.
 
 ## Overview
-1. Creating a SSH Key on your device
-2. Connecting your SSH Key to your DigtialOcean Account
-3. Adding your Arch Linux Image onto DigitalOcean
-4. Installing and Configuring `doctl`
-5. Configure `cloud-init`
-6. Create Droplet using `cloud-init` and `doctl`
-7. Connecting to the Droplet via SSH 
+1. [Creating a SSH Key on your device](#creating-a-ssh-key-on-your-device)
+2. [Connecting your SSH Key to your DigtialOcean Account](#connecting-your-ssh-key-to-your-digtialocean-account)
+3. [Adding your Arch Linux Image onto DigitalOcean](#adding-your-arch-linux-image-onto-digitalocean)
+4. [Installing and Configuring `doctl`](#installing-and-configuring-doctl)
+5. [Configuring `cloud-init`](#)
+6. [Create Droplet using `cloud-init` and `doctl`](#)
+7. [Connecting to the Droplet via SSH ](#)
 
 # Instructions
 ## Creating a SSH Key on your device
@@ -139,3 +139,52 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
 **Congratulations, you have installed `doctl` on your local device!**
 
 ### Creating an API token
+To use the API, we need to create a personal access token and we will be using the token to authenticate and connect to the API. We will be creating the API and token in the DigitalOcean website
+>**Warning:** Keep your token secret as they act like passwords.  
+
+**Step 1:** Click on **API** on the left-handed side of the menu and click **Generate New Token**
+
+**Step 2:** On the **Create a New Personal Access Token** fill out the following:
+> - Token Name
+> - Expiration
+> - Scopes - Based on your team role
+
+![Filling out your personal access token](Images/personaltokengeneration.jpg)
+
+**Step 3:** Click **Generate Token**
+> **Warning:** After generating the token, it will show you your personal token code. This code will only appear once, so make sure to save your token somewhere safe
+
+**Congratulations, you have successfully created a New Personal Access Token through the API!**
+
+### Using the API token to grant account access to `doctl`
+
+**Step 1:** Open your **Terminal**
+
+**Step 2:** Type the the code below into your terminal
+```
+doctl auth init --context <NAME>
+```
+> **Note:** Change the *NAME* to a name of your choice
+
+> This code will create an authentication context which we need to connect to through our API Token. (*)
+
+**Step 3:** The terminal will prompt you for your Personal token code. Paste your token code into the terminal and press **Enter**
+
+**Congratulations, you have granted account access to `doctl` using your API token!**
+
+### Validate that `doctl` is working
+This step will check if you have configured and installed `doctl` correctly
+
+> Make sure you are switched into your account. If you are not in the account you can switch into it by typing `doctl auth switch --context <account-name>` and changing *account-name* to the name of the account
+
+Type this command below into your terminal
+```
+doctl account get
+```
+![`doctl` code and result](Images/validatingaccount.jpg)
+
+> Your output should look something like this
+
+**Congratulations, your `doctl` is working!**
+
+## Configuring `cloud-init`
