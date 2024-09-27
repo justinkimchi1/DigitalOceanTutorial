@@ -67,3 +67,30 @@ Get-Content C:\Users\your-username\.ssh\key-name.pub | Set-Clipboard
 **Congratulations, you have connected your SSH Key to your DigitalOcean account!**
 
 ## Adding your Arch Linux Image onto DigitalOcean
+
+DigitalOcean allows us to upload our own operating system image that we can use to run our private server. This is particularly useful when we want to use custom operating system configurations instead of the default options that DigitalOcean provides.
+
+**Step 1:** Click on **Manage** and in the dropdown, click on **Backups & Snapshots** 
+
+![Opening Backups & Snapshots](Images/backupsandsnapshots.jpg)
+
+**Step 2:** Select **Custom Images** and select **Upload Image**
+
+![Selecting Upload Image](Images/uploadingimage.jpg)
+
+**Step 3:** Select the Arch Linux Image in your folder and press **Open**
+
+![Selecting Arch Linux Image](Images/openingyourimage.jpg)
+
+**Step 4:** Select **Arch Linux** in the **Distribution**
+
+![Selecting Arch Linux in Distribution](Images/selectingarchlinuximage.jpg)
+
+**Step 5:** Select **San Francisco 3** in **Choose a datacenter region**
+
+![Selecting San Francisco 3](Images/datacenterregion.jpg)
+
+**Step 6:** Select **Upload Image** after completing last two steps
+
+**Congratulations, you have finished uploading your Arch Linux Image to your DigitalOcean account!**
+
