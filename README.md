@@ -28,15 +28,42 @@ We need to create a SSH Key to securely connect to your remote server. SSH is an
 
 **Step 4:** Type this code into your terminal
 ```
-ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\do-key -C "your-email-address"
+ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-address"
 ```
-<!-- <img src = 'Images/creating_sshkey.jpg' alt = 'SSH Key Code'/> -->
+
 ![SSH Key Code](Images/creating_sshkey.jpg)
 
-> **Note:** Change *your-username* with the current user in the terminal (in the picture above it would be kimsu) and change *your-email-address* with your desired email address
+> **Note:** Change *your-username* with the current user in the terminal (in the picture above it would be kimsu), *key-name* with your desired Key name, and *your-email-address* with your desired email address
 
 **Congratulations you have successfully created a SSH Key Pair!**
 
 ## Connecting your SSH Key to your DigtialOcean Account
 After we created the SSH Key, we need to connect it to our DigitalOcean account so we have secure connection to the server. After adding our SSH, the server will verify that our private Key on our device matches the public Key that we uploaded. This method enhances our server security and simplifies our server management.
 
+**Step 1:** Open your **Terminal**
+
+**Step 2:** Type this code into your terminal
+```
+Get-Content C:\Users\your-username\.ssh\key-name.pub | Set-Clipboard
+```
+![Copying Your SSH Key Code](Images/copying_yoursshkey1.jpg)
+
+> **Note:** Before you run the code, change *your-username* to the user in the terminal (in the image above the user would be kimsu) and change the *key-name* to the name of the Key you created
+
+> This code will copy your SSH Key into your clipboard
+
+**Step 3:** Select **Settings** on the left-hand side of the DigitalOcean menu
+
+![Clicking on settings](Images/clicking_settings.jpg)
+
+**Step 4:** Select **Security** and select **Add SSH Key** in the settings
+
+![Adding SSH Key in Settings](Images/security_addsshkey.jpg)
+
+**Step 5:** Paste your SSH Key into the Public Key box, give it a name, and Save the key
+
+![Saving the Key](Images/pastekey.jpg)
+
+**Congratulations, you have connected your SSH Key to your DigitalOcean account!**
+
+## Adding your Arch Linux Image onto DigitalOcean
