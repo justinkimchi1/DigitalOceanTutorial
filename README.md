@@ -25,7 +25,7 @@ ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-add
 
 ![SSH Key Code](Images/creating_sshkey.jpg)
 
-> **Note:** Change "your-username" with the current user in the terminal (in the picture above it would be kimsu), "key-name" with your desired Key name, and "your-email-address" with your desired email address
+> **Note:** Change `your-username` with the current user in the terminal (in the picture above it would be kimsu), `key-name` with your desired Key name, and `your-email-address` with your desired email address
 
 ![SSH Key](Images/sshkey.jpg)
 
@@ -106,7 +106,44 @@ doctl account get
 **Congratulations, your `doctl` is working!**
 
 ## Configuring `cloud-init`
-`cloud-init`
+`cloud-init` is a tool that will help us configure a new system using a YAML configuration file. It will help automate the following tasks
+- Create a new user
+- Install initial packages
+- Add the public SSH key to the new user’s `authorized_keys`
+- Disable root access via SSH
+
+**Step 1:** Install Neovim with the code below
+```
+sudo pacman -S neovim
+```
+
+**Step 2:** Create a YAML file using Neovim with the code below
+
+```
+nvim <cloud-file-name>.yaml
+```
+> **Note:** Change `<cloud-file-name>` to your desired name 
+
+**Step 3:** Add the contents below into your YAML file
+
+```
+users:
+  - name: <name>
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-ed25519 <public key> <email>
+disable_root: true
+packages:
+  - nginx
+  - neovim
+  - git 
+  - htop
+```
+
+> **Note:** Replace `<name>` with a username, `<public key>` with your public key that you made earlier, and `<email>` with the same email you created your key with
+
+**Congratulations, you have successfully configured your `cloud-init` YAML file!**
 
 ## Creating a Droplet using `doctl`
 
