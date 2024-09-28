@@ -51,36 +51,12 @@ ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-add
 
 ### Installing `doctl` on Arch Linux
 
-**Step 1:** Open your **Terminal** 
-
-**Step 2:** Run the code below in your Terminal
+In your **Terminal** Run the code below 
+```
+sudo pacman -S doctl
 ```
 
-```
-
-**Step 3:** Extract the binary by running the code below
-```
-Expand-Archive -Path ~\doctl-1.110.0-windows-amd64.zip
-```
-
-**Step 4:** In a terminal opened with **Run as Administrator** create a new directory with the code below
-```
-New-Item -ItemType Directory $env:ProgramFiles\doctl\
-```
-> This code creates a new directory where we can move the `doctl` binary into
-
-**Step 5:** Move the `doctl` binary into the new directory with the code below
-```
-Move-Item -Path ~\doctl-1.110.0-windows-amd64\doctl.exe -Destination $env:ProgramFiles\doctl\
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    [Environment]::GetEnvironmentVariable("Path",
-    [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\doctl\",
-    [EnvironmentVariableTarget]::Machine)
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
-```
-
-**Congratulations, you have installed `doctl` on your local device!**
+**You have successfully installed `doctl` on Arch Linux!**
 
 ### Creating an API token
 To use the API, we need to create a personal access token and we will be using the token to authenticate and connect to the API. We will be creating the API and token in the DigitalOcean website
@@ -102,11 +78,9 @@ To use the API, we need to create a personal access token and we will be using t
 
 ### Using the API token to grant account access to `doctl`
 
-**Step 1:** Open your **Terminal**
-
-**Step 2:** Type the the code below into your terminal
+**Step 1:** In your **Terminal** type the the code below
 ```
-doctl auth init --context <NAME>
+doctl auth init --context <NAME> 
 ```
 > **Note:** Change the *NAME* to a name of your choice
 
@@ -132,6 +106,7 @@ doctl account get
 **Congratulations, your `doctl` is working!**
 
 ## Configuring `cloud-init`
+`cloud-init`
 
 ## Creating a Droplet using `doctl`
 
