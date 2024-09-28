@@ -146,5 +146,43 @@ packages:
 **Congratulations, you have successfully configured your `cloud-init` YAML file!**
 
 ## Creating a Droplet using `doctl`
+**Step 1:** In your terminal use this code to find your Arch Linux Image ID
+```
+doctl compute image list --public | grep "Arch"
+```
+![Arch Linux Image ID](Images/findingyourarchlinuxid.jpg)
+> It should look something like this. Save the ID as we are going to be using it when creating the droplet
+
+**Step 2:** Type this command into your terminal to create a new Droplet
+```
+doctl compute droplet create --image <Image ID> --size s-1vcpu-1gb --region sfo3 --ssh-keys <SSH Key ID> --user-data-file <path-to-your-cloud-init-file> --wait <project-name>
+```
+What each part of the code represents:
+
+- `doctl compute droplet create`: The command doctl requires to create Droplets.
+
+- `--image <Image ID>`: The OS image used to create the Droplet. 
+
+- `--size s-1vcpu-1gb`: The number of processors and the amount of RAM each Droplet has. In this case, each Droplet has one processor and 1 GB of RAM.
+
+- `--region sfo3`: The region to create the Droplets in. In this example, doctl deploys the Droplets into the SFO3 datacenter region.
+
+- `--ssh-keys <SSH Key ID>`: The SSH keys to import into the Droplet from your DigitalOcean account. You can retrieve a list of available keys by running `doctl compute ssh-key list`
+
+- `--user-data-file <path-to-your-cloud-init-file>`: Specifies the path to your cloud-config.yaml file. For example, /Users/example-user/cloud-config.yaml.
+
+- `--wait`: Tells doctl to wait for the Droplets to finish deployment before accepting new commands.
+
+- `<project-name>`: The names of the Droplets being deployed. You can deploy as many Droplets as you like by providing a name for each Droplet at the end of the command.
+
+**Step 3:** To check if your droplet creation was successful run the code below
+```
+doctl compute droplet list
+```
+![Droplet list in terminal](Images/checkingdroplets.jpg)
+
+> It should look something like this
+
+**Congratulations, you have successfully deployed your Droplet!**
 
 ## Connecting to the Droplet via SSH
