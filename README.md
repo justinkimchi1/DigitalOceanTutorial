@@ -10,7 +10,7 @@ This Tutorial is aimed at Term 2 CIT Students who have some knowledge of command
 2. [Installing and Configuring `doctl`](#installing-and-configuring-doctl)
 3. [Configuring `cloud-init`](#configuring-cloud-init)
 4. [Creating a Droplet using `doctl`](#creating-a-droplet-using-doctl)
-5. [Connecting to the Droplet via SSH](#)
+5. [Connecting to the Droplet via SSH](#connecting-to-the-droplet-via-ssh)
 
 # Instructions
 ## Creating a SSH Key on your device
@@ -18,14 +18,22 @@ We need to create a SSH Key to securely connect to your remote server. SSH is an
 
 **Step 1:** Open the **Terminal** on your device
 
-**Step 2:** Type this code into your terminal
+**Step 2:** Generate the SSH key by running the following command:
 ```
-ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-address"
+ssh-keygen -t ed25519 -f C:\Users\<your-username>\.ssh\<key-name> -C "your-email-address"
 ```
 
 ![SSH Key Code](Images/creating_sshkey.jpg)
 
-> **Note:** Change `your-username` with the current user in the terminal (in the picture above it would be kimsu), `key-name` with your desired Key name, and `your-email-address` with your desired email address
+Change `your-username` with the current user in the terminal, `key-name` with your desired Key name, and `your-email-address` with your desired email address
+
+`ssh-keygen` is the built in command line function for generating SSH Keys
+
+`-t` Specifies which algorithm to encrypt
+
+`-f` Specifies the file name and path of the file 
+
+`-C` Specifies a comment for the command
 
 ![SSH Key](Images/sshkey.jpg)
 
@@ -51,10 +59,16 @@ ssh-keygen -t ed25519 -f C:\Users\your-username\.ssh\key-name -C "your-email-add
 
 ### Installing `doctl` on Arch Linux
 
-In your **Terminal** Run the code below 
+On Arch Linux you can install `doctl` using `pacman` 
 ```
 sudo pacman -S doctl
 ```
+
+`sudo` will give root users elevated permissions/privileges
+
+`pacman` a utility of Arch Linux and allows easier package management
+
+`-S` Specifies the installation 
 
 **You have successfully installed `doctl` on Arch Linux!**
 
@@ -84,7 +98,9 @@ doctl auth init --context <NAME>
 ```
 > **Note:** Change the *NAME* to a name of your choice
 
-> This code will create an authentication context which we need to connect to through our API Token. (*)
+`doctl auth init` initializes `doctl` to use a specific account
+
+`--content` allows us to set a custom name for our token
 
 **Step 3:** The terminal will prompt you for your Personal token code. Paste your token code into the terminal and press **Enter**
 
@@ -95,10 +111,12 @@ This step will check if you have configured and installed `doctl` correctly
 
 > Make sure you are switched into your account. If you are not in the account you can switch into it by typing `doctl auth switch --context <account-name>` and changing *account-name* to the name of the account
 
-Type this command below into your terminal
+To retrieve account profile details type
 ```
 doctl account get
 ```
+
+
 ![`doctl` code and result](Images/validatingaccount.jpg)
 
 > Your output should look something like this
@@ -150,6 +168,13 @@ packages:
 ```
 doctl compute image list --public | grep "Arch"
 ```
+
+`doctl compute image list` lists images on your account
+
+`--public` filters images to only include public images
+
+`| grep "Arch"` filters the output and returns lines that contain "Arch"
+
 ![Arch Linux Image ID](Images/findingyourarchlinuxid.jpg)
 > It should look something like this. Save the ID as we are going to be using it when creating the droplet
 
@@ -186,3 +211,52 @@ doctl compute droplet list
 **Congratulations, you have successfully deployed your Droplet!**
 
 ## Connecting to the Droplet via SSH
+**Step 1:** Navigate to your `~\.ssh\config` in your arch linux terminal
+
+**Step 2:** Type `nvim config` into the terminal to create a config file
+
+**Step 3:** Press **I** and insert the following text
+```
+Host <Host-Name>
+	HostName <Public IPv4 Address>
+	User root
+	PreferredAuthentications publickey
+	IdentityFile ~/.ssh/<key-name-here>
+```
+> **Note:** Replace `<Host-Name>` with a host name, `<Public IPv4 Address>` with your droplet's public IP address and `<key-name-here>` with your SSH Key name
+
+**Step 4:** Exit by pressing **Esc** and typing `:wq`
+
+**Step 5:** Connect to your new droplet with the following commands
+
+If you created the config file:
+
+```
+ssh <host-name>
+```
+
+If skipped steps 2-4:
+```
+ssh -i ~/.ssh/<key-name> <username>@<Public IPv4 Address>
+```
+
+**Congratulations, you have successfully connected to your new droplet!**
+
+## References
+1. Cloud-init Documentation. "Cloud-init Examples." Cloud-init. Accessed September 27, 2024. https://cloudinit.readthedocs.io/en/latest/reference/examples.html.
+   
+2. DigitalOcean Documentation. "Create a Personal Access Token." DigitalOcean. Accessed September 27, 2024. https://docs.digitalocean.com/reference/api/create-personal-access-token/.
+   
+3. DigitalOcean Documentation. "doctl Glossary." DigitalOcean. Accessed September 27, 2024. https://docs.digitalocean.com/glossary/doctl/.
+   
+4. DigitalOcean Documentation. "doctl Installation Guide." DigitalOcean. Accessed September 27, 2024. https://docs.digitalocean.com/reference/doctl/how-to/install/.
+   
+5. DigitalOcean Documentation. "doctl Reference." DigitalOcean. Accessed September 27, 2024. https://docs.digitalocean.com/reference/doctl/reference/.
+   
+6. DigitalOcean Documentation. "Automate Setup with Cloud-init." DigitalOcean. Accessed September 27, 2024. https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/.
+   
+7. htop.dev. "htop." Accessed September 27, 2024. https://htop.dev/.
+   
+8. ARM Learning Paths. "Neovim Setup on Pinebook Pro." ARM. Accessed September 27, 2024. https://learn.arm.com/learning-paths/laptops-and-desktops/pinebook-pro/neovim/.
+   
+9. Markdown Guide. "Markdown Cheat Sheet." Markdown Guide. Accessed September 27, 2024. https://www.markdownguide.org/cheat-sheet/.
